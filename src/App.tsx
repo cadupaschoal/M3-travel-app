@@ -6,7 +6,7 @@ const App = () => {
     <div className="App">
       <GlobalStyle />
       <Header />
-      <h1>Teste</h1>
+      <h1>Novo commit</h1>
     </div>
   );
 };
