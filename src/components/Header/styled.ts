@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import Logo from "../../assets/Images/transferir.jpg";
 
 export const StyledHeader = styled.header`
   width: 100%;
@@ -19,4 +20,19 @@ export const StyledHeader = styled.header`
       justify-content: center;
     }
   }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn {
+    display: flex;
+    gap: 32px;
+  }
+
+  .imgHome{
+    display: flex;
+  }
+
 `;
