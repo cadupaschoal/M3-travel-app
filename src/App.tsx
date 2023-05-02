@@ -1,15 +1,12 @@
-import { Header } from './components/Header';
 import { GlobalStyle } from './styles/reset';
-import { CountryModal } from './components/CountryModal';
+import Router from './routes';
 
 const App = () => {
   return (
-    <div className="App">
+    <>
       <GlobalStyle />
-      <Header />
-      <CountryModal />
-      <h1>Novo commit</h1>
-    </div>
+      <Router />
+    </>
   );
 };
 
