@@ -12,7 +12,7 @@ interface IUserProviderProps {
 interface IUserContext {
     counter: number;
     setCounter: React.Dispatch<React.SetStateAction<number>>;
-    user: IUser | null;
+    user: IUser | {};
 }
 
 interface IUser{
@@ -43,11 +43,11 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     const [counter, setCounter] = useState(0) //Somente um teste para ver se funcionava!
 
 
-    const [user, setUser] = useState<IUser | null>(null);
+    const [user, setUser] = useState<IUser | {}>({});
 
     const navigate = useNavigate();
     
-    useEffect(() => {
+    /*useEffect(() => {
         console.log("Montou")
         const token = localStorage.getItem("@TOKEN");
         const userId = localStorage.getItem("@USERID");
@@ -77,7 +77,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         if (token && userId) {
             userAutoLogin();
         }
-    }, []);
+    }, []);*/
 
     const userRegister = async (formData: IRegisterFormData, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
         try {
