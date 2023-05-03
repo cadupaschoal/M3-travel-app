@@ -1,13 +1,12 @@
-import { Header } from './components/Header';
 import { GlobalStyle } from './styles/reset';
+import Router from './routes';
 
 const App = () => {
   return (
-    <div className="App">
+    <>
       <GlobalStyle />
-      <Header />
-      <h1>Novo commit</h1>
-    </div>
+      <Router />
+    </>
   );
 };
 
