@@ -12,7 +12,7 @@ interface IUserProviderProps {
 interface IUserContext {
     counter: number;
     setCounter: React.Dispatch<React.SetStateAction<number>>;
-    user: IUser | null;
+    user: IUser | {};
 }
 
 
@@ -22,7 +22,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     const [counter, setCounter] = useState(0) //Somente um teste para ver se funcionava!
 
 
-    const [user, setUser] = useState<IUser | null>(null);
+    const [user, setUser] = useState<IUser | {}>({});
 
     const navigate = useNavigate();
     
@@ -32,7 +32,8 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         const userId = localStorage.getItem("@USERID");
         
         const userAutoLogin = async () => {
-            try{
+            try{//commit
+                console.log(user)
 
                 //A gente usa userID pra pegar logar o user?
                 //Como acessamos a Fake-API?  No caso aqui coloquei a Countries que nada a ver
@@ -94,7 +95,6 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
             setLoading(false);
         }
     };
-
 
     return(
         <UserContext.Provider 
