@@ -9,7 +9,6 @@ interface IUserContext {
     setCounter: React.Dispatch<React.SetStateAction<number>>;
 }
 
-
 export const UserContext = createContext({} as IUserContext)
 
 export const UserProvider = ({ children }: IUserProviderProps) => {

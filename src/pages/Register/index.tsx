@@ -45,10 +45,18 @@ const Register = () => {
           </div>
 
           <div className="flex flex-col text-gray-400 py-2">
+            <label>Digite seu país atual</label>
+            <input
+              className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+              type="text"
+            />
+          </div>
+
+          {/* <div className="flex flex-col text-gray-400 py-2">
             <select className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none">
               <option>Selecione seu país atual</option>
             </select>
-          </div>
+          </div> */}
 
           <button className="w-full my-5 py-2 bg-teal-500 text-white font-semibold rounded-lg">
             Cadastrar
