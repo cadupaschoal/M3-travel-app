@@ -15,27 +15,6 @@ interface IUserContext {
     user: IUser | null;
 }
 
-interface IUser{
-    id: string;
-    name: string;
-    email: string;
-}
-//Não sei quais infos o usuário vai ter, então coloquei só o nome e email. Mesma coisa para a resposta do register
-interface IRegisterFormData{
-    name: string;
-    email: string;
-    password: string;
-    homeCountry: string;
-
-}
-interface IUserLoginRegisterResponse{
-    accessToken: string;
-    user: IUser
-}
-export interface ILoginFormData{
-    email: string;
-    password: string;
-  }
 
 export const UserContext = createContext({} as IUserContext)
 
