@@ -5,7 +5,6 @@ export const RestContriesApi = axios.create({
   timeout: 3000,
 });
 
-//fake api
 export const fakeApi = axios.create({
   baseURL: "https://racapajole-fake-api.onrender.com",
   timeout: 6000,
