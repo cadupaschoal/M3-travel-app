@@ -47,13 +47,14 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
 
     const navigate = useNavigate();
     
-    /*useEffect(() => {
+    useEffect(() => {
         console.log("Montou")
         const token = localStorage.getItem("@TOKEN");
         const userId = localStorage.getItem("@USERID");
         
         const userAutoLogin = async () => {
-            try{
+            try{//commit
+                console.log(user)
 
                 //A gente usa userID pra pegar logar o user?
                 //Como acessamos a Fake-API?  No caso aqui coloquei a Countries que nada a ver
@@ -77,7 +78,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         if (token && userId) {
             userAutoLogin();
         }
-    }, []);*/
+    }, []);
 
     const userRegister = async (formData: IRegisterFormData, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
         try {
@@ -115,7 +116,6 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
             setLoading(false);
         }
     };
-
 
     return(
         <UserContext.Provider 
