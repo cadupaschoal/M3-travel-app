@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { RestContriesApi } from "../services/API's/index";
-
+import { fakeApi } from "../services/API's/index";
+import { IRegisterFormData } from "../pages/Register/index";
 import * as z from 'zod';
 
 
@@ -12,25 +12,22 @@ interface IUserProviderProps {
 interface IUserContext {
     counter: number;
     setCounter: React.Dispatch<React.SetStateAction<number>>;
-    user: IUser | {};
+    user: {} | IUser;
+    usersLogin: (formData: ILoginFormData, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>;
+    userRegister: (formData: IRegisterFormData, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>
 }
 
 interface IUser{
-    id: string;
+    id: number;
     name: string;
     email: string;
+    country: string;
+    age: number | string;
 }
-//Não sei quais infos o usuário vai ter, então coloquei só o nome e email. Mesma coisa para a resposta do register
-interface IRegisterFormData{
-    name: string;
-    email: string;
-    password: string;
-    homeCountry: string;
 
-}
 interface IUserLoginRegisterResponse{
     accessToken: string;
-    user: IUser
+    user: IUser;
 }
 export interface ILoginFormData{
     email: string;
@@ -43,28 +40,32 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     const [counter, setCounter] = useState(0) //Somente um teste para ver se funcionava!
 
 
-    const [user, setUser] = useState<IUser | {}>({});
+    const [user, setUser] = useState<IUser | {id: number}>({
+        id: 0
+    });
 
     const navigate = useNavigate();
     
     useEffect(() => {
+        console.log(user);
+    }, [user]);
+
+    useEffect(() => {
         console.log("Montou")
         const token = localStorage.getItem("@TOKEN");
-        const userId = localStorage.getItem("@USERID");
         
         const userAutoLogin = async () => {
             try{//commit
                 console.log(user)
+                const token = localStorage.getItem("@TOKEN");
+                const userId = localStorage.getItem("@USERID");
 
-                //A gente usa userID pra pegar logar o user?
-                //Como acessamos a Fake-API?  No caso aqui coloquei a Countries que nada a ver
-                //qual a inferencia dos dados do usuário?
-                const {data} = await RestContriesApi.post<IUser>(`/users/${userId}`, {
+                const {data} = await fakeApi.post<IUserLoginRegisterResponse>(`/users/${userId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                setUser(data);
+                setUser(data.user);
                 navigate('/dashboard');
 
             }
@@ -72,24 +73,23 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
                 console.log(error);
                 localStorage.removeItem("@TOKEN");
                 localStorage.removeItem("@USERID");
+                
             }
         }
-
-        if (token && userId) {
+        if (token && user.id != 0) {
             userAutoLogin();
         }
     }, []);
 
-    const userRegister = async (formData: IRegisterFormData, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+    const userRegister = async (formData: IRegisterFormData, setLoading: React.Dispatch<React.SetStateAction<boolean>> ) => {
         try {
             setLoading(true);
-            const {data}= await RestContriesApi.post<IUserLoginRegisterResponse>('/users', formData);
+            const {data}= await fakeApi.post<IUserLoginRegisterResponse>('/users', formData);
             localStorage.setItem("@TOKEN", data.accessToken);
-            localStorage.setItem("@USERID", data.user.id)
 
-            setUser(data.user);
+            //setUser(data.user);
             console.log(data);
-            navigate('/shop');
+            navigate('/dashboard');
         }
         catch (error) {
             console.log(error);
@@ -102,9 +102,14 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     const usersLogin = async (formData: ILoginFormData, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
         try {
             setLoading(true);
-            const {data}= await RestContriesApi.post<IUserLoginRegisterResponse>('/login', formData);
+            console.log(formData)
+            const {data}= await fakeApi.post<IUserLoginRegisterResponse>('/login', formData);
+            setUser(data.user);
+            
             localStorage.setItem("@TOKEN", data.accessToken);
-            localStorage.setItem("@USERID", data.user.id);
+            localStorage.setItem("@USERID", String(data.user.id));
+            console.log(data);
+            
             setUser(data.user);
             navigate('/dashboard');
             console.log(data);
@@ -123,8 +128,11 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
             counter,
             setCounter,
             user,
+            usersLogin,
+            userRegister,
         }}> 
             {children}
         </UserContext.Provider>
     )
 }
+////////////////////////////////////////////
