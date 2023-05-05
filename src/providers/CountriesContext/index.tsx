@@ -13,6 +13,8 @@ interface ICountryContext {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   searchCountry: (country: string) => Promise<void>;
+  currentCountry: IResponse;
+  setCurrentCountry: React.Dispatch<React.SetStateAction<{} | IResponse>>;
 }
 
 interface IFlags {
@@ -28,20 +30,21 @@ interface IName {
 }
 
 interface IResponse {
-  flags: IFlags;
-  name: IName;
-  currencies: object;
-  capital: string[];
-  region: string;
-  subregion: string;
-  languages: object;
-  borders: string[];
+  flags?: IFlags;
+  name?: IName;
+  currencies?: object;
+  capital?: string[];
+  region?: string;
+  subregion?: string;
+  languages?: object;
+  borders?: string[];
 }
 export const CountryProvider = ({ children }: IContryContextProps) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [currentCountry, setCurrentCountry] = useState<any>({});
-  console.log(currentCountry);
+  const [currentCountry, setCurrentCountry] = useState<IResponse>(
+    {} as IResponse
+  );
 
   const searchCountry = async (country: string) => {
     try {
@@ -50,7 +53,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       );
 
       if (response.status === 200) {
-        setCurrentCountry(response.data);
+        setCurrentCountry(response.data[0]);
         borderCountries(response.data[0].borders);
         sameLanguage(response.data[0].languages);
         sameCurrency(response.data[0].currencies);
@@ -59,6 +62,8 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       console.log(error);
     }
   };
+
+  console.log(currentCountry);
 
   // Retorna um array com os países que fazem fronteira
   const borderCountries = async (array: string[]) => {
@@ -102,7 +107,15 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
   };
   return (
     <CountryContext.Provider
-      value={{ isOpen, setIsOpen, searchInput, setSearchInput, searchCountry }}
+      value={{
+        isOpen,
+        setIsOpen,
+        searchInput,
+        setSearchInput,
+        searchCountry,
+        currentCountry,
+        setCurrentCountry,
+      }}
     >
       {children}
     </CountryContext.Provider>
