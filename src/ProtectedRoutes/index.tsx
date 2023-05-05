@@ -7,6 +7,6 @@ export const ProtectedRoutes = () => {
     return user ? (
         <Outlet />
     ) : (
-        <Navigate to="/dashboard"/>
+        <Navigate to="/"/>
         )
 }

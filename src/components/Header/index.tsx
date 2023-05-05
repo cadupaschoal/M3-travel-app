@@ -12,10 +12,10 @@ export const Header = () => {
         </figure>
         <div className="buttons__box">
           <div className="button__Login">
-            <Link to={"#"}>Login</Link>
+            <Link to={"/login"}>Login</Link>
           </div>
           <div className="button__Cadastro">
-            <Link to={"#"}>Cadastro</Link>
+            <Link to={"/register"}>Cadastro</Link>
           </div>
         </div>
       </div>
