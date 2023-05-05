@@ -14,8 +14,12 @@ interface ICountryContext {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   searchCountry: (country: string) => Promise<void>;
   currentCountry: any;
-  borders: never[];
-  setBorders: React.Dispatch<React.SetStateAction<never[]>>;
+  borders: object[];
+  setBorders: React.Dispatch<React.SetStateAction<object[]>>;
+  languages: IResponse[];
+  setLanguages: React.Dispatch<React.SetStateAction<IResponse[]>>;
+  currency: IResponse[];
+  setCurrency: React.Dispatch<React.SetStateAction<IResponse[]>>;
 }
 
 interface IFlags {
@@ -30,7 +34,7 @@ interface IName {
   nativeName: object;
 }
 
-interface IResponse {
+export interface IResponse {
   flags?: IFlags;
   name?: IName;
   currencies?: object;
@@ -44,7 +48,9 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentCountry, setCurrentCountry] = useState<any>([]);
-  const [borders, setBorders] = useState([]);
+  const [borders, setBorders] = useState<IResponse[]>([]);
+  const [languages, setLanguages] = useState<IResponse[]>([]);
+  const [currency, setCurrency] = useState<IResponse[]>([]);
   console.log(currentCountry);
 
   const searchCountry = async (country: string) => {
@@ -90,6 +96,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
           `/lang/${lenguage}?fields=name,flags,languages`
         );
         console.log(response.data);
+        setLanguages(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -103,7 +110,8 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       const response = await RestContriesApi.get(
         `/currency/${countryCurrency[0]}?fields=name,flags,currencies`
       );
-      console.log(response.data);
+      console.log(response.data, 'currencie');
+      setCurrency(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -119,6 +127,10 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
         currentCountry,
         borders,
         setBorders,
+        languages,
+        setLanguages,
+        currency,
+        setCurrency,
       }}
     >
       {children}
