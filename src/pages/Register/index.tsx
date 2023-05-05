@@ -62,7 +62,7 @@ const Register = () => {
           onSubmit={handleSubmit(submit)}
         className="max-w-[400px] w-full mx-auto bg-gray-900 p-8 px-8 rounded-lg">
           <h2 className="text-4x1 text-white font-bold text-center">
-            Faça seu login
+            Faça seu cadastro
           </h2>
           <div className="flex flex-col text-gray-400 py-2">
             <label>Nome</label>
@@ -116,7 +116,7 @@ const Register = () => {
             </select>
           </div> 
 
-          <button className="w-full my-5 py-2 bg-teal-400 text-white font-semibold rounded-lg">
+          <button type="submit" className="w-full my-5 py-2 bg-teal-400 text-white font-semibold rounded-lg">
             Cadastrar
           </button>
           <button onClick={()=>{navigate("/login")}} className="w-full my-5 py-2 bg-teal-800 text-white font-semibold rounded-lg">

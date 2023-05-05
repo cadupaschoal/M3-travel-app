@@ -10,7 +10,6 @@ import HomePage from "./pages/Home"
 const Router = () => {
     return(
         <Routes>
-            {/* <Route ROTA PARA PAGINA HOME></Route>   */}
             <Route path="/" element={<HomePage />}></Route>
             {/* <Route path="/" element={<Login />}></Route> */}
             <Route path="/login" element={<Login />}></Route>

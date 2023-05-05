@@ -8,11 +8,11 @@ import { CountryProvider } from './providers/CountriesContext';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserProvider>
-        <CountryProvider>
+      <CountryProvider>
+        <UserProvider>
           <App />
-        </CountryProvider>
-      </UserProvider>
+        </UserProvider>
+      </CountryProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

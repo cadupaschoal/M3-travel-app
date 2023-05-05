@@ -49,6 +49,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
         `/name/${country}?fields=flags,name,region,subregion,languages,currencies,capital,borders`
       );
 
+      console.log(response)
       if (response.status === 200) {
         setCurrentCountry(response.data);
         borderCountries(response.data[0].borders);
