@@ -100,7 +100,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
 
       //setUser(data.user);
       console.log(data);
-      navigate("/dashboard");
+      navigate("/login");
     } catch (error) {
       console.log(error);
     } finally {
@@ -119,15 +119,12 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         formData
       );
       setUser(data.user);
+      searchCountry(data.user.country);
 
       localStorage.setItem("@TOKEN", data.accessToken);
       localStorage.setItem("@USERID", String(data.user.id));
       console.log(data);
-
-      searchCountry(data.user.country);
-
       navigate('/dashboard');
-      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {

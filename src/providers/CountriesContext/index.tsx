@@ -13,6 +13,9 @@ interface ICountryContext {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   searchCountry: (country: string) => Promise<void>;
+  currentCountry: any;
+  borders: never[];
+  setBorders: React.Dispatch<React.SetStateAction<never[]>>;
 }
 
 interface IFlags {
@@ -40,7 +43,8 @@ interface IResponse {
 export const CountryProvider = ({ children }: IContryContextProps) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [currentCountry, setCurrentCountry] = useState<any>({});
+  const [currentCountry, setCurrentCountry] = useState<any>([]);
+  const [borders, setBorders] = useState([])
   console.log(currentCountry);
 
   const searchCountry = async (country: string) => {
@@ -49,8 +53,8 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
         `/name/${country}?fields=flags,name,region,subregion,languages,currencies,capital,borders`
       );
 
-      console.log(response)
       if (response.status === 200) {
+        console.log(response)
         setCurrentCountry(response.data);
         borderCountries(response.data[0].borders);
         sameLanguage(response.data[0].languages);
@@ -68,6 +72,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       const response = await RestContriesApi.get(
         `/alpha?codes=${listContries}`
       );
+      setBorders(response.data);
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -103,7 +108,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
   };
   return (
     <CountryContext.Provider
-      value={{ isOpen, setIsOpen, searchInput, setSearchInput, searchCountry }}
+      value={{ isOpen, setIsOpen, searchInput, setSearchInput, searchCountry, currentCountry, borders, setBorders }}
     >
       {children}
     </CountryContext.Provider>

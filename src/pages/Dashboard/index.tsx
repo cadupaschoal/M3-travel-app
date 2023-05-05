@@ -4,9 +4,13 @@ import Logo from "../../assets/Images/logoRacapajole-removebg-preview.png";
 import { useContext } from "react";
 import { UserContext } from "../../providers/UserContext";
 import imgHome from "../../assets/Images/imgHome.png";
+import { CountryContext } from "../../providers/CountriesContext";
 
 const Dashboard = () => {
     const { setUser, user } = useContext(UserContext);
+    const { currentCountry, borders } = useContext(CountryContext);
+    const countryCurrency = currentCountry[0]?.currencies[Object.keys(currentCountry[0].currencies)[0]].name;
+    const countrySymbol = currentCountry[0]?.currencies[Object.keys(currentCountry[0].currencies)[0]].symbol;
     return(
         <>
             <header className="flex justify-center py-4 bg-slate-600">
@@ -27,11 +31,11 @@ const Dashboard = () => {
             <nav className="flex justify-center py-4 relative z-10">
                 <div className="flex flex-row items-center justify-between w-3/4">
                     <div>
-                        <h2>Olá, </h2>
+                        <h2>Olá, {user?.name}</h2>
                         <h2>Já arrumou suas malas?</h2>
                     </div>
-                    <h2>País atual: </h2>
-                    <h2>Moeda atual: Euro (€)</h2>
+                    <h2>País atual: {user?.country}</h2>
+                    <h2>Moeda atual: {countryCurrency} ({countrySymbol})</h2>
                     <button className="bg-slate-800 px-4 py-1 rounded text-white/80 cursor-pointer">Editar informações</button>
                 </div>
             </nav>
