@@ -31,20 +31,20 @@ interface IName {
 }
 
 interface IResponse {
-  flags: IFlags;
-  name: IName;
-  currencies: object;
-  capital: string[];
-  region: string;
-  subregion: string;
-  languages: object;
-  borders: string[];
+  flags?: IFlags;
+  name?: IName;
+  currencies?: object;
+  capital?: string[];
+  region?: string;
+  subregion?: string;
+  languages?: object;
+  borders?: string[];
 }
 export const CountryProvider = ({ children }: IContryContextProps) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentCountry, setCurrentCountry] = useState<any>([]);
-  const [borders, setBorders] = useState([])
+  const [borders, setBorders] = useState([]);
   console.log(currentCountry);
 
   const searchCountry = async (country: string) => {
@@ -54,7 +54,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       );
 
       if (response.status === 200) {
-        console.log(response)
+        console.log(response);
         setCurrentCountry(response.data);
         borderCountries(response.data[0].borders);
         sameLanguage(response.data[0].languages);
@@ -64,6 +64,8 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       console.log(error);
     }
   };
+
+  console.log(currentCountry);
 
   // Retorna um array com os países que fazem fronteira
   const borderCountries = async (array: string[]) => {
@@ -108,7 +110,16 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
   };
   return (
     <CountryContext.Provider
-      value={{ isOpen, setIsOpen, searchInput, setSearchInput, searchCountry, currentCountry, borders, setBorders }}
+      value={{
+        isOpen,
+        setIsOpen,
+        searchInput,
+        setSearchInput,
+        searchCountry,
+        currentCountry,
+        borders,
+        setBorders,
+      }}
     >
       {children}
     </CountryContext.Provider>
