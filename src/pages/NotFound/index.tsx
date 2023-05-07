@@ -1,30 +1,16 @@
-/* Este trecho de código serve somente para testar o comportamento do contexto dos paíeses */
+import Image from '../../assets/Images/notFound.jpg';
 
-import { useContext, SyntheticEvent } from 'react';
-import { CountryContext } from '../../providers/CountriesContext';
-
-const Teste = () => {
-  const { isOpen, setIsOpen, searchInput, setSearchInput, searchCountry } =
-    useContext(CountryContext);
-
-  const testeOpen = () => {
-    setIsOpen(!isOpen);
-    console.log(isOpen);
-  };
-  const submit = (event: SyntheticEvent) => {
-    event.preventDefault();
-    searchCountry(searchInput);
-  };
+const NotFound = () => {
   return (
-    <form onSubmit={(event) => submit(event)}>
-      <input
-        type="text"
-        onChange={(e) => setSearchInput(e.target.value)}
-        className="bg-red-200"
-      />
-      <button type="submit">pesquisar</button>
-    </form>
+    <div>
+      <figure>
+        <img
+          src={Image}
+          className="w-full h-full object-cover absolute mix-blend-overlay z-0"
+        />
+      </figure>
+    </div>
   );
 };
 
-export default Teste;
+export default NotFound;

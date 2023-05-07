@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import HomePage from "./pages/Home"
 import Edit from './pages/Edit';
+import NotFound from './pages/NotFound';
 
 
 
@@ -19,8 +20,10 @@ const Router = () => {
                 <Route  index element={<Dashboard />}></Route>
             </Route>
             <Route path='/editUser' element={<Edit/>}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+            
         </Routes>
-    )
+    );
 
 };
 
