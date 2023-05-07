@@ -4,6 +4,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import HomePage from "./pages/Home"
+import Edit from './pages/Edit';
 
 
 
@@ -17,6 +18,7 @@ const Router = () => {
             <Route path="/dashboard" element={<ProtectedRoutes/>}>
                 <Route  index element={<Dashboard />}></Route>
             </Route>
+            <Route path='/editUser' element={<Edit/>}></Route>
         </Routes>
     )
 

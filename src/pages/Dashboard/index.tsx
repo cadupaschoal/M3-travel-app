@@ -1,13 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../../assets/Images/flag.png"
 import Logo from "../../assets/Images/logoRacapajole-removebg-preview.png";
 import { useContext } from "react";
 import { UserContext } from "../../providers/UserContext";
 import imgHome from "../../assets/Images/imgHome.png";
 import { CountryContext } from "../../providers/CountriesContext";
+import { EditModal } from "../../components/EditModal";
 
 const Dashboard = () => {
-    const { setUser, user } = useContext(UserContext);
+  const navigate = useNavigate();
+    
+    const { setUser, user, editModal, setEditModal } = useContext(UserContext);
     const { currentCountry, borders } = useContext(CountryContext);
     const countryCurrency = currentCountry[0]?.currencies[Object.keys(currentCountry[0].currencies)[0]].name;
     const countrySymbol = currentCountry[0]?.currencies[Object.keys(currentCountry[0].currencies)[0]].symbol;
@@ -36,7 +39,10 @@ const Dashboard = () => {
                     </div>
                     <h2>País atual: {user?.country}</h2>
                     <h2>Moeda atual: {countryCurrency} ({countrySymbol})</h2>
-                    <button className="bg-slate-800 px-4 py-1 rounded text-white/80 cursor-pointer">Editar informações</button>
+                    <button onClick={()=>{
+                        console.log("foi")
+                        navigate("/editUser")
+                    }} className="bg-slate-800 px-4 py-1 rounded text-white/80 cursor-pointer">Editar informações</button>
                 </div>
             </nav>
             <main className="flex justify-center py-4 border-t-2 border-slate-600 relative z-10">
