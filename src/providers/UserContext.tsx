@@ -24,6 +24,7 @@ interface IUserContext {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+  editUserData: (formData: IRegisterFormData, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>
 }
 
 interface IUser {
@@ -190,6 +191,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         setUser,
         editModal,
         setEditModal,
+        editUserData,
       }}
     >
       {children}

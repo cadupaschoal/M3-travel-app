@@ -17,7 +17,7 @@ export interface IEditFormData {
 const Edit = () => {
   const navigate = useNavigate();
 
-  const { userRegister, user } = useContext(UserContext) ;
+  const { userRegister, user , editUserData} = useContext(UserContext) ;
 
   useEffect(() => {
     console.log(user)
@@ -50,7 +50,7 @@ const Edit = () => {
   );
   const submit: SubmitHandler<IEditFormData> = (formData) => {
     console.log(formData)  
-    userRegister(formData, setLoading)
+    editUserData(formData, setLoading)
   }
 
 
