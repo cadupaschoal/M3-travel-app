@@ -10,6 +10,8 @@ interface IUserProviderProps {
 }
 
 interface IUserContext {
+  setEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+  editModal: boolean;
   counter: number;
   setCounter: React.Dispatch<React.SetStateAction<number>>;
   user: IUser | null;
@@ -50,6 +52,10 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
 
   const [user, setUser] = useState<IUser | null>(null);
 
+  const [editModal, setEditModal] = useState(false);
+
+
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -85,6 +91,45 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     };
     userAutoLogin()
   }, []);
+
+  const editUserData = async (
+    formData: IRegisterFormData,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("@TOKEN");
+      const userId = localStorage.getItem("@USERID");
+      if (userId && token) {
+        try {
+          //commit
+          
+          const { data } = await fakeApi.put<IUser>(
+            `/users/${userId}`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(data);
+          setUser(data);
+          
+          navigate("/dashboard");
+        } catch (error) {
+          console.log(error);
+          localStorage.removeItem("@TOKEN");
+          localStorage.removeItem("@USERID");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   const userRegister = async (
     formData: IRegisterFormData,
@@ -132,6 +177,8 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
+
+
   return (
     <UserContext.Provider
       value={{
@@ -141,6 +188,8 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         usersLogin,
         userRegister,
         setUser,
+        editModal,
+        setEditModal,
       }}
     >
       {children}

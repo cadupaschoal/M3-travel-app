@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import logo from '../../assets/Images/flag.png';
 import Logo from '../../assets/Images/logoRacapajole-removebg-preview.png';
@@ -6,9 +7,10 @@ import { UserContext } from '../../providers/UserContext';
 import imgHome from '../../assets/Images/imgHome.png';
 import { CountryContext } from '../../providers/CountriesContext';
 import { IResponse } from '../../providers/CountriesContext';
+import { EditModal } from "../../components/EditModal";
 
 const Dashboard = () => {
-  const { setUser, user } = useContext(UserContext);
+  const { setUser, user, editModal, setEditModal } = useContext(UserContext);
   const { currentCountry, borders, languages, currency } =
     useContext(CountryContext);
   const countryCurrency =
@@ -53,7 +55,12 @@ const Dashboard = () => {
             <h2 className="text-white">
               Moeda atual: {countryCurrency} ({countrySymbol})
             </h2>
-            <button className="bg-slate-800 px-4 py-1 rounded text-white/80 cursor-pointer">
+            <button 
+            onClick={()=>{
+                        console.log("foi")
+                        navigate("/editUser")
+                    }}
+            className="bg-slate-800 px-4 py-1 rounded text-white/80 cursor-pointer">
               Editar informações
             </button>
           </div>
