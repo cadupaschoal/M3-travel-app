@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/Images/flag.png';
 import Logo from '../../assets/Images/logoRacapajole-removebg-preview.png';
 import { useContext } from 'react';
@@ -20,6 +20,8 @@ const Dashboard = () => {
     currentCountry[0]?.currencies[Object.keys(currentCountry[0].currencies)[0]]
       .symbol;
   console.log(borders);
+  const navigate = useNavigate();
+
   return (
     <>
       <header className="flex justify-center py-4 bg-slate-600">
