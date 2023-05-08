@@ -80,7 +80,7 @@ const Login = () => {
           </div>
           <button
             disabled={loading}
-            className="w-full my-5 py-2 bg-teal-500 text-white font-semibold rounded-lg"
+            className="bg-slate-800 px-8 py-2 rounded text-white/80 w-full my-4"
           >
             {loading ? 'Entrando...' : 'Fazer Login'}
           </button>
@@ -89,7 +89,7 @@ const Login = () => {
             onClick={() => {
               navigate('/register');
             }}
-            className="w-full my-5 py-2 bg-red-500 text-white font-semibold rounded-lg"
+            className="bg-slate-600 px-8 py-2 rounded text-white/80 w-full my-4"
           >
             Cadastre-se
           </button>

@@ -6,6 +6,7 @@ import { UserContext } from '../../providers/UserContext';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CountryContext } from '../../providers/CountriesContext';
+import { ToastContainer, toast } from "react-toastify"
 
 export interface IRegisterFormData {
   email: string;
@@ -58,6 +59,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    <ToastContainer />
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block">
         <img className="w-full h-full object-cover" src={aviatorImg} alt="" />
@@ -155,7 +158,7 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full my-5 py-2 bg-teal-400 text-white font-semibold rounded-lg"
+            className="bg-slate-800 px-8 py-2 rounded-lg text-white/80 w-full my-6"
           >
             Cadastrar
           </button>
@@ -163,13 +166,14 @@ const Register = () => {
             onClick={() => {
               navigate('/login');
             }}
-            className="w-full my-5 py-2 bg-teal-800 text-white font-semibold rounded-lg"
+            className="bg-slate-600 px-8 py-2 rounded-lg text-white/80 w-full my-4"
           >
             Login
           </button>
         </form>
       </div>
     </div>
+    </>
   );
 };
 

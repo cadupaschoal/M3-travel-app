@@ -34,6 +34,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <FavoriteModal />
       <header className="flex justify-center py-4 bg-slate-600">
         <div className="flex flex-row h-10 items-center justify-between w-3/4 ">
           <img src={Logo} alt="" className="h-24" />
@@ -81,7 +82,6 @@ const Dashboard = () => {
             </button>
           </div>
         </nav>
-        <FavoriteModal />
         <main className="flex justify-center py-4 border-t-2 border-slate-600 relative z-10">
           <div className="flex flex-col justify-center w-3/4 gap-5">
             <span className="text-white">
