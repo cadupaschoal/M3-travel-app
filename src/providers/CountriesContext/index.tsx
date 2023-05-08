@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 import { RestContriesApi } from "../../services/API's";
 
 export const CountryContext = createContext({} as ICountryContext);
@@ -46,7 +46,7 @@ export interface IResponse {
   borders?: string[];
 }
 export const CountryProvider = ({ children }: IContryContextProps) => {
-  const [searchInput, setSearchInput] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentCountry, setCurrentCountry] = useState<any>([]);
   const [borders, setBorders] = useState<IResponse[]>([]);
@@ -57,7 +57,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
   useEffect(() => {
     const selectCountries = async () => {
       try {
-        const response = await RestContriesApi.get("/all?fields=name");
+        const response = await RestContriesApi.get('/all?fields=name');
         setCountry(response.data);
       } catch (error) {
         console.log(error);
@@ -125,7 +125,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       const response = await RestContriesApi.get(
         `/currency/${countryCurrency[0]}?fields=name,flags,currencies`
       );
-      console.log(response.data, "currencie");
+      console.log(response.data, 'currencie');
       setCurrency(response.data);
     } catch (error) {
       console.log(error);
