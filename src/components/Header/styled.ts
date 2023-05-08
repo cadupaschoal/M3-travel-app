@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledHeader = styled.header`
   width: 100%;
@@ -48,11 +48,11 @@ export const StyledHeader = styled.header`
     border: 3px ridge #149cea;
     outline: none;
     background-color: transparent;
-    color: white;
     transition: 1s;
     border-radius: 0.3em;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
   }
   .button__Cadastro {
     display: flex;
@@ -64,11 +64,11 @@ export const StyledHeader = styled.header`
     border: 3px ridge #149cea;
     outline: none;
     background-color: transparent;
-    color: white;
     transition: 1s;
     border-radius: 0.3em;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
   }
 
   .button__Login:hover::before,

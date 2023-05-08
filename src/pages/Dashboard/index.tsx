@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/Images/flag.png';
 import Logo from '../../assets/Images/logoRacapajole-removebg-preview.png';
@@ -7,7 +6,7 @@ import { UserContext } from '../../providers/UserContext';
 import imgHome from '../../assets/Images/imgHome.png';
 import { CountryContext } from '../../providers/CountriesContext';
 import { IResponse } from '../../providers/CountriesContext';
-import { EditModal } from "../../components/EditModal";
+import { EditModal } from '../../components/EditModal';
 
 const Dashboard = () => {
   const { setUser, user, editModal, setEditModal } = useContext(UserContext);
@@ -20,6 +19,7 @@ const Dashboard = () => {
     currentCountry[0]?.currencies[Object.keys(currentCountry[0].currencies)[0]]
       .symbol;
   console.log(borders);
+  console.log(user?.country);
   const navigate = useNavigate();
 
   return (
@@ -57,12 +57,13 @@ const Dashboard = () => {
             <h2 className="text-white">
               Moeda atual: {countryCurrency} ({countrySymbol})
             </h2>
-            <button 
-            onClick={()=>{
-                        console.log("foi")
-                        navigate("/editUser")
-                    }}
-            className="bg-slate-800 px-4 py-1 rounded text-white/80 cursor-pointer">
+            <button
+              onClick={() => {
+                console.log('foi');
+                navigate('/editUser');
+              }}
+              className="bg-slate-800 px-4 py-1 rounded text-white/80 cursor-pointer"
+            >
               Editar informações
             </button>
           </div>
@@ -79,11 +80,13 @@ const Dashboard = () => {
                   className="flex flex-col justify-center items-center gap-3 w-4/6 min-w-[170px] max-w-[170px]"
                 >
                   <img
-                    src={country.flags?.svg}
+                    src={country.flags?.png}
                     alt={country.flags?.alt}
                     className="w-60 h-[110px]"
                   />
-                  <h3 className="text-white">{country.name?.common}</h3>
+                  <h3 className="text-white text-center">
+                    {country.name?.common}
+                  </h3>
                 </li>
               ))}
             </ul>
@@ -101,7 +104,9 @@ const Dashboard = () => {
                     alt={country.flags?.alt}
                     className="w-60 h-[110px]"
                   />
-                  <h3 className="text-white">{country.name?.common}</h3>
+                  <h3 className="text-white text-center">
+                    {country.name?.common}
+                  </h3>
                 </li>
               ))}
             </ul>
@@ -120,7 +125,9 @@ const Dashboard = () => {
                       alt={country.flags?.alt}
                       className="w-60 h-[110px]"
                     />
-                    <h3 className="text-white">{country.name?.common}</h3>
+                    <h3 className="text-white text-center">
+                      {country.name?.common}
+                    </h3>
                   </li>
                 ))
               ) : (
