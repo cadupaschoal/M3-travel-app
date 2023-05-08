@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { RestContriesApi } from "../../services/API's";
 
 export const CountryContext = createContext({} as ICountryContext);
@@ -13,6 +13,14 @@ interface ICountryContext {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   searchCountry: (country: string) => Promise<void>;
+  currentCountry: any;
+  borders: object[];
+  setBorders: React.Dispatch<React.SetStateAction<object[]>>;
+  languages: IResponse[];
+  setLanguages: React.Dispatch<React.SetStateAction<IResponse[]>>;
+  currency: IResponse[];
+  setCurrency: React.Dispatch<React.SetStateAction<IResponse[]>>;
+  country: IResponse[];
 }
 
 interface IFlags {
@@ -27,20 +35,38 @@ interface IName {
   nativeName: object;
 }
 
-interface IResponse {
-  flags: IFlags;
-  name: IName;
-  currencies: object;
-  capital: string[];
-  region: string;
-  subregion: string;
-  languages: object;
-  borders: string[];
+export interface IResponse {
+  flags?: IFlags;
+  name?: IName;
+  currencies?: object;
+  capital?: string[];
+  region?: string;
+  subregion?: string;
+  languages?: object;
+  borders?: string[];
 }
+
 export const CountryProvider = ({ children }: IContryContextProps) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [currentCountry, setCurrentCountry] = useState<any>({});
+  const [currentCountry, setCurrentCountry] = useState<any>([]);
+  const [borders, setBorders] = useState<IResponse[]>([]);
+  const [languages, setLanguages] = useState<IResponse[]>([]);
+  const [currency, setCurrency] = useState<IResponse[]>([]);
+  const [country, setCountry] = useState<IResponse[]>([]);
+
+  useEffect(() => {
+    const selectCountries = async () => {
+      try {
+        const response = await RestContriesApi.get('/all?fields=name');
+        setCountry(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    selectCountries();
+  }, []);
+
   console.log(currentCountry);
 
   const searchCountry = async (country: string) => {
@@ -50,6 +76,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       );
 
       if (response.status === 200) {
+        console.log(response);
         setCurrentCountry(response.data);
         borderCountries(response.data[0].borders);
         sameLanguage(response.data[0].languages);
@@ -60,6 +87,8 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
     }
   };
 
+  console.log(currentCountry);
+
   // Retorna um array com os países que fazem fronteira
   const borderCountries = async (array: string[]) => {
     const listContries = array.toString();
@@ -67,6 +96,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       const response = await RestContriesApi.get(
         `/alpha?codes=${listContries}`
       );
+      setBorders(response.data);
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -82,6 +112,7 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
           `/lang/${lenguage}?fields=name,flags,languages`
         );
         console.log(response.data);
+        setLanguages(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -95,14 +126,29 @@ export const CountryProvider = ({ children }: IContryContextProps) => {
       const response = await RestContriesApi.get(
         `/currency/${countryCurrency[0]}?fields=name,flags,currencies`
       );
-      console.log(response.data);
+      console.log(response.data, 'currencie');
+      setCurrency(response.data);
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <CountryContext.Provider
-      value={{ isOpen, setIsOpen, searchInput, setSearchInput, searchCountry }}
+      value={{
+        isOpen,
+        setIsOpen,
+        searchInput,
+        setSearchInput,
+        searchCountry,
+        currentCountry,
+        borders,
+        setBorders,
+        languages,
+        setLanguages,
+        currency,
+        setCurrency,
+        country,
+      }}
     >
       {children}
     </CountryContext.Provider>
