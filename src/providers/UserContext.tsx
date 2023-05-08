@@ -4,6 +4,7 @@ import { fakeApi } from "../services/API's/index";
 import { IRegisterFormData } from '../pages/Register/index';
 import * as z from 'zod';
 import { CountryContext } from './CountriesContext';
+import { toast } from 'react-toastify';
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -126,17 +127,17 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
           console.log(data);
           setUser(data);
           searchCountry(formData.country);
-
+          toast.success('Conta atualizada com sucesso');
           setTimeout(() => {
             navigate('/dashboard');
-          }, 2000);
+          }, 3000);
         } catch (error) {
           console.log(error);
           localStorage.removeItem('@TOKEN');
           localStorage.removeItem('@USERID');
         }
       } else {
-        console.log('Não foi feita nenhuma alteração');
+        toast.warn('Não foi feita nenhuma alteração');
       }
     } catch (error) {
       console.log(error);

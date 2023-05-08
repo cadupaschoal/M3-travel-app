@@ -25,7 +25,7 @@ const Dashboard = () => {
   return (
     <>
       <header className="flex justify-center py-4 bg-slate-600">
-        <div className="flex flex-row h-18 items-center justify-between w-3/4">
+        <div className="flex flex-row h-10 items-center justify-between w-3/4 ">
           <img src={Logo} alt="" className="h-24" />
           <div className="text-white/80 flex flex-row w-44 justify-between">
             <button className="bg-slate-800 px-4 py-1 rounded">
@@ -44,7 +44,7 @@ const Dashboard = () => {
       <div>
         <img
           src={imgHome}
-          className="w-full h-full object-cover absolute mix-blend-overlay z-0"
+          className="w-full h-full object-cover absolute mix-blend-overlay z-0 backdrop-saturate-50"
           alt=""
         />
         <nav className="flex justify-center py-4 relative z-10">
