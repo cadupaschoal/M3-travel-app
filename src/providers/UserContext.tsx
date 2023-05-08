@@ -73,7 +73,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
 
   const [editModal, setEditModal] = useState(false);
 
-  const [favoriteList, setFavoriteList] = useState<IResponse [] | []>([]);
+  const [favoriteList, setFavoriteList] = useState<IResponse[] | []>([]);
 
   const [showFavorite, setShowFavorite] = useState(false);
 
@@ -207,24 +207,24 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
 
   const userLogout = () => {
     setUser(null);
-    localStorage.removeItem("@TOKEN");
-    localStorage.removeItem("@USERID");
-  }
+    localStorage.removeItem('@TOKEN');
+    localStorage.removeItem('@USERID');
+  };
 
   const addFavorite = (country: IResponse) => {
     if (!favoriteList.some((item) => item.name === country.name)) {
       setFavoriteList([country, ...favoriteList]);
     } else {
-      console.log('país já adicionado')
+      console.log('país já adicionado');
     }
-  }
+  };
 
   const removeFavorite = (removedCountry: IResponse) => {
     const newList = favoriteList.filter(
       (item) => item.name !== removedCountry.name
     );
-    setFavoriteList(newList)
-  }
+    setFavoriteList(newList);
+  };
 
   return (
     <UserContext.Provider
