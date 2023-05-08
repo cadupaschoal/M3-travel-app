@@ -4,11 +4,8 @@ import { fakeApi } from "../services/API's/index";
 import { IRegisterFormData } from '../pages/Register/index';
 import * as z from 'zod';
 import { CountryContext } from './CountriesContext';
-<<<<<<< HEAD
 import { toast } from 'react-toastify';
-=======
 import { IResponse } from './CountriesContext';
->>>>>>> 35a7b7874a488f4ad2cb47487f3146402fa10da6
 
 interface IUserProviderProps {
   children: React.ReactNode;
