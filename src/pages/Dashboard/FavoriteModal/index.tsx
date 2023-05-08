@@ -7,14 +7,14 @@ const FavoriteModal = () => {
 
     return showFavorite? ( 
         favoriteList.length > 0 ? (
-            <div className="z-10">
-                <div>
+            <div className="z-40 fixed w-screen h-screen flex justify-center items-center">
+                <div className="flex flex-col gap-4 absolute ">
                     <h1>Lista de favoritos</h1>
-                    <span onClick={() => setShowFavorite(false)}>X</span>
+                    <span className="absolute top-0 right-0" onClick={() => setShowFavorite(false)}>X</span>
                     {favoriteList.map((favorite: IResponse, index: number) => (
-                        <div key={index}>
+                        <div className="flex items-center relative" key={index}>
                             <img src={favorite.flags?.png} alt={favorite.name?.official} />
-                            <span onClick={() => removeFavorite(favorite)}>X</span>
+                            <span className="absolute top-0 right-0" onClick={() => removeFavorite(favorite)}>X</span>
                             <div>
                                 <div>
                                     <h2>Nome do país</h2>
@@ -40,9 +40,10 @@ const FavoriteModal = () => {
                 </div>
             </div>
         ) : (
-            <div>
+            <div className="z-40 fixed w-screen h-screen flex justify-center items-center">
                 <div>
                     <h1>Lista de favoritos</h1>
+                    <span onClick={() => setShowFavorite(false)}>X</span>
                     <span>Você ainda não possui nenhum país na lista de favoritos!</span>
                 </div>
             </div>
