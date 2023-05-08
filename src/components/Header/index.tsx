@@ -5,17 +5,17 @@ import Logo from '../../assets/Images/logoRacapajole-removebg-preview.png';
 export const Header = () => {
   return (
     <StyledHeader>
-      <div className="container__Header">
+      <div className="flex justify-center items-center pb-40 flex-col">
         <figure>
           {' '}
           <img src={Logo} alt="Logo" />
         </figure>
         <div className="buttons__box">
-          <div className="button__Login">
-            <Link to={'/login'}>Login</Link>
+          <div>
+            <Link className='bg-slate-800 px-8 py-2 rounded text-white/80' to={'/login'}>Login</Link>
           </div>
-          <div className="button__Cadastro">
-            <Link to={'/register'}>Cadastro</Link>
+          <div>
+            <Link className='bg-slate-800 px-6 py-2 rounded text-white/80' to={'/register'}>Cadastro</Link>
           </div>
         </div>
       </div>

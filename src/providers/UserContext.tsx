@@ -169,9 +169,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         formData
       );
       localStorage.setItem('@TOKEN', data.accessToken);
-
-      //setUser(data.user);
-      console.log(data);
+      toast.success("Conta criada com sucesso!")
       navigate('/login');
     } catch (error) {
       console.log(error);
