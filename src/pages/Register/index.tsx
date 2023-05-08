@@ -29,7 +29,7 @@ const Register = () => {
       country: z.string().nonempty('País é obrigatório'),
       password: z
         .string()
-        .min(7)
+        .min(7, 'A senha deve conter ao menos 7 caracteres')
         .regex(/(?=.*?[A-Z])/, 'É necessário ao menos uma letra maiúscula')
         .regex(/(?=.*?[a-z])/, 'É necessário ao menos uma letra minúscula')
         .regex(/(?=.*?[0-9])/, 'É necessário pelo menos um número')
@@ -72,50 +72,70 @@ const Register = () => {
             Faça seu cadastro
           </h2>
           <div className="flex flex-col text-gray-400 py-2">
-            <label>Nome</label>
+            <label className="font-semibold">Nome: </label>
             <input
               {...register('name')}
               disabled={loading}
               className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               type="text"
             />
+            {errors.name ? (
+              <p className="text-red-500 font-semibold">
+                {errors.name?.message}
+              </p>
+            ) : null}
           </div>
 
           <div className="flex flex-col text-gray-400 py-2">
-            <label>Email</label>
+            <label className="font-semibold">Email: </label>
             <input
               {...register('email')}
               disabled={loading}
               className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               type="text"
             />
+            {errors.email ? (
+              <p className="text-red-500 font-semibold">
+                {errors.email?.message}
+              </p>
+            ) : null}
           </div>
 
           <div className="flex flex-col text-gray-400 py-2">
-            <label>Senha</label>
+            <label className="font-semibold">Senha: </label>
             <input
               {...register('password')}
               disabled={loading}
               className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               type="password"
             />
+            {errors.password ? (
+              <p className="text-red-500 font-semibold">
+                {errors.password?.message}
+              </p>
+            ) : null}
           </div>
 
           <div className="flex flex-col text-gray-400 py-2">
-            <label>Confirme sua senha</label>
+            <label className="font-semibold">Confirme sua senha: </label>
             <input
               {...register('confirm')}
               disabled={loading}
               className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
               type="password"
             />
+            {errors.confirm ? (
+              <p className="text-red-500 font-semibold">
+                {errors.confirm?.message}
+              </p>
+            ) : null}
           </div>
 
           <div className="flex flex-col text-gray-400 py-2">
             <select
               {...register('country')}
               disabled={loading}
-              className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+              className="font-semibold rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
             >
               {country.map((countrie) => (
                 <option
@@ -126,6 +146,11 @@ const Register = () => {
                 </option>
               ))}
             </select>
+            {errors.country ? (
+              <p className="text-red-500 font-semibold">
+                {errors.country?.message}
+              </p>
+            ) : null}
           </div>
 
           <button
