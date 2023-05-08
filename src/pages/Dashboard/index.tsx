@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../assets/Images/flag.png';
 import Logo from '../../assets/Images/logoRacapajole-removebg-preview.png';
 import { useContext } from 'react';
 import { UserContext } from '../../providers/UserContext';
@@ -7,9 +6,10 @@ import imgHome from '../../assets/Images/imgHome.png';
 import { CountryContext } from '../../providers/CountriesContext';
 import { IResponse } from '../../providers/CountriesContext';
 import { EditModal } from '../../components/EditModal';
+import FavoriteModal from './FavoriteModal';
 
 const Dashboard = () => {
-  const { setUser, user, editModal, setEditModal } = useContext(UserContext);
+  const { setUser, user, editModal, setEditModal, userLogout, addFavorite, showFavorite, favoriteList, setShowFavorite  } = useContext(UserContext);
   const { currentCountry, borders, languages, currency } =
     useContext(CountryContext);
   const countryCurrency =
@@ -18,9 +18,9 @@ const Dashboard = () => {
   const countrySymbol =
     currentCountry[0]?.currencies[Object.keys(currentCountry[0].currencies)[0]]
       .symbol;
-  console.log(borders);
   console.log(user?.country);
   const navigate = useNavigate();
+  console.log(favoriteList)
 
   return (
     <>
@@ -28,12 +28,12 @@ const Dashboard = () => {
         <div className="flex flex-row h-18 items-center justify-between w-3/4">
           <img src={Logo} alt="" className="h-24" />
           <div className="text-white/80 flex flex-row w-44 justify-between">
-            <button className="bg-slate-800 px-4 py-1 rounded">
+            <button onClick={() => setShowFavorite(true)} className="bg-slate-800 px-4 py-1 rounded">
               Favoritos
             </button>
             <Link
               to={'/'}
-              onClick={() => setUser(null)}
+              onClick={() => userLogout()}
               className="bg-slate-800 px-4 py-1 rounded"
             >
               Sair
@@ -68,6 +68,7 @@ const Dashboard = () => {
             </button>
           </div>
         </nav>
+        <FavoriteModal />
         <main className="flex justify-center py-4 border-t-2 border-slate-600 relative z-10">
           <div className="flex flex-col justify-center w-3/4 gap-5">
             <span className="text-white">
@@ -78,6 +79,7 @@ const Dashboard = () => {
                 <li
                   key={index}
                   className="flex flex-col justify-center items-center gap-3 w-4/6 min-w-[170px] max-w-[170px]"
+                  onClick={() => addFavorite(country)}
                 >
                   <img
                     src={country.flags?.png}

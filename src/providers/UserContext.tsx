@@ -4,6 +4,7 @@ import { fakeApi } from "../services/API's/index";
 import { IRegisterFormData } from '../pages/Register/index';
 import * as z from 'zod';
 import { CountryContext } from './CountriesContext';
+import { IResponse } from './CountriesContext';
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -28,6 +29,13 @@ interface IUserContext {
     formData: IEditUser,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
+  favoriteList: [] | IResponse[];
+  setFavoriteList: React.Dispatch<React.SetStateAction<[] | IResponse[]>>;
+  userLogout: () => void;
+  addFavorite: (country: IResponse) => void;
+  removeFavorite: (removedCountry: IResponse) => void;
+  showFavorite: boolean;
+  setShowFavorite: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IUser {
@@ -63,6 +71,10 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null);
 
   const [editModal, setEditModal] = useState(false);
+
+  const [favoriteList, setFavoriteList] = useState<IResponse [] | []>([]);
+
+  const [showFavorite, setShowFavorite] = useState(false);
 
   const navigate = useNavigate();
 
@@ -166,6 +178,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
       setLoading(false);
     }
   };
+
   const usersLogin = async (
     formData: ILoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -191,6 +204,27 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
+  const userLogout = () => {
+    setUser(null);
+    localStorage.removeItem("@TOKEN");
+    localStorage.removeItem("@USERID");
+  }
+
+  const addFavorite = (country: IResponse) => {
+    if (!favoriteList.some((item) => item.name === country.name)) {
+      setFavoriteList([country, ...favoriteList]);
+    } else {
+      console.log('país já adicionado')
+    }
+  }
+
+  const removeFavorite = (removedCountry: IResponse) => {
+    const newList = favoriteList.filter(
+      (item) => item.name !== removedCountry.name
+    );
+    setFavoriteList(newList)
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -203,6 +237,13 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         editModal,
         setEditModal,
         editUserData,
+        favoriteList,
+        setFavoriteList,
+        userLogout,
+        addFavorite,
+        removeFavorite,
+        showFavorite,
+        setShowFavorite,
       }}
     >
       {children}
