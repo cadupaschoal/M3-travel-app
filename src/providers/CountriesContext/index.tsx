@@ -45,6 +45,7 @@ export interface IResponse {
   languages?: object;
   borders?: string[];
 }
+
 export const CountryProvider = ({ children }: IContryContextProps) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
