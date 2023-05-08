@@ -9,7 +9,17 @@ import { EditModal } from '../../components/EditModal';
 import FavoriteModal from './FavoriteModal';
 
 const Dashboard = () => {
-  const { setUser, user, editModal, setEditModal, userLogout, addFavorite, showFavorite, favoriteList, setShowFavorite  } = useContext(UserContext);
+  const {
+    setUser,
+    user,
+    editModal,
+    setEditModal,
+    userLogout,
+    addFavorite,
+    showFavorite,
+    favoriteList,
+    setShowFavorite,
+  } = useContext(UserContext);
   const { currentCountry, borders, languages, currency } =
     useContext(CountryContext);
   const countryCurrency =
@@ -20,7 +30,7 @@ const Dashboard = () => {
       .symbol;
   console.log(user?.country);
   const navigate = useNavigate();
-  console.log(favoriteList)
+  console.log(favoriteList);
 
   return (
     <>
@@ -29,7 +39,10 @@ const Dashboard = () => {
         <div className="flex flex-row h-10 items-center justify-between w-3/4 ">
           <img src={Logo} alt="" className="h-24" />
           <div className="text-white/80 flex flex-row w-44 justify-between">
-            <button onClick={() => setShowFavorite(true)} className="bg-slate-800 px-4 py-1 rounded">
+            <button
+              onClick={() => setShowFavorite(true)}
+              className="bg-slate-800 px-4 py-1 rounded"
+            >
               Favoritos
             </button>
             <Link
@@ -45,7 +58,7 @@ const Dashboard = () => {
       <div>
         <img
           src={imgHome}
-          className="w-full h-full object-cover absolute mix-blend-overlay z-0"
+          className="w-full h-full object-cover absolute  z-0 "
           alt=""
         />
         <nav className="flex justify-center py-4 relative z-10">
@@ -78,7 +91,7 @@ const Dashboard = () => {
               {borders.map((country: IResponse, index: number) => (
                 <li
                   key={index}
-                  className="flex flex-col justify-center items-center gap-3 w-4/6 min-w-[170px] max-w-[170px]"
+                  className="cursor-pointer flex flex-col justify-center items-center gap-3 w-4/6 min-w-[170px] max-w-[170px]"
                   onClick={() => addFavorite(country)}
                 >
                   <img
@@ -99,7 +112,7 @@ const Dashboard = () => {
               {languages.map((country: IResponse, index: number) => (
                 <li
                   key={index}
-                  className="flex flex-col justify-center items-center gap-3 min-w-[170px] max-w-[170px]"
+                  className="cursor-pointer flex flex-col justify-center items-center gap-3 min-w-[170px] max-w-[170px]"
                 >
                   <img
                     src={country.flags?.png}
@@ -115,7 +128,7 @@ const Dashboard = () => {
             <span className="text-white">
               Países com mesma moeda que o seu:
             </span>
-            <ul className="flex flex-row justify-between gap-10 overflow-x-auto">
+            <ul className="cursor-pointer flex flex-row justify-between gap-10 overflow-x-auto">
               {currency.length > 1 ? (
                 currency.map((country: IResponse, index: number) => (
                   <li
